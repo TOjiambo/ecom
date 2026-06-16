@@ -236,76 +236,6 @@
   </div>
 </div>
 
-<script>injectFooter(1);</script>
-<script src="main.js"></script>
-<script>
-let shippingCost = 250;
-
-function updateShipping(val) {
-  const costs = { nairobi: 250, countrywide: 500, pickup: 0 };
-  shippingCost = costs[val] || 250;
-  renderCheckoutTotals();
-}
-
-function renderCheckoutTotals() {
-  const sub = state.cart.reduce((s,i) => s + i.price * i.qty, 0);
-  const total = sub + shippingCost;
-  document.getElementById('checkoutSubtotal').textContent = `KES ${sub.toLocaleString()}`;
-  document.getElementById('checkoutShipping').textContent = shippingCost === 0 ? 'FREE' : `KES ${shippingCost.toLocaleString()}`;
-  document.getElementById('checkoutDiscount').textContent = '—';
-  document.getElementById('checkoutTotal').textContent = `KES ${total.toLocaleString()}`;
-}
-
-function renderCheckoutItems() {
-  const container = document.getElementById('checkoutItems');
-  if (!container) return;
-  if (state.cart.length === 0) {
-    container.innerHTML = '<div style="color:var(--slate);font-size:0.85rem;padding:12px 0">Your cart is empty. <a href="shop.html" style="color:var(--blue-light)">Shop now</a></div>';
-    return;
-  }
-  container.innerHTML = state.cart.map(item => `
-    <div class="order-item">
-      <div class="order-item-img">${item.emoji || '📦'}</div>
-      <div style="flex:1;min-width:0">
-        <div class="order-item-name">${item.name}</div>
-        <div class="order-item-variant">${item.variant || ''} · Qty: ${item.qty}</div>
-      </div>
-      <div class="order-item-price">KES ${(item.price * item.qty).toLocaleString()}</div>
-    </div>`).join('');
-  renderCheckoutTotals();
-}
-
-function initiateMpesa() {
-  const phone = document.getElementById('mpesaPhone').value.trim();
-  if (!phone) { Toast.show('Please enter your M-Pesa number', 'error'); return; }
-  Toast.show('STK Push sent to ' + phone + '! Enter your PIN to confirm.', 'info', 5000);
-}
-
-function placeOrder() {
-  const firstName = document.getElementById('firstName').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const address = document.getElementById('address').value.trim();
-
-  if (!firstName || !email || !address) {
-    Toast.show('Please fill in all required fields', 'error');
-    return;
-  }
-  if (state.cart.length === 0) {
-    Toast.show('Your cart is empty', 'error');
-    return;
-  }
-
-  // Show success modal
-  const orderNum = '#VTX-' + Math.floor(10000 + Math.random() * 90000);
-  document.getElementById('orderNum').textContent = orderNum;
-  const modal = document.getElementById('successModal');
-  modal.style.display = 'flex';
-  state.cart = [];
-  Cart.save();
-}
-
-renderCheckoutItems();
-</script>
 <script src="cart.js"></script>
 <script>injectFooter(1);</script>
 
@@ -353,42 +283,30 @@ function renderCheckoutTotals() {
 }
 
 function renderCheckoutItems() {
-
   const cart = Cart.get();
-
-  const container =
-    document.getElementById('checkoutItems');
+  const container = document.getElementById('checkoutItems');
 
   if (!container) return;
 
   if (cart.length === 0) {
-
     container.innerHTML = `
       <div style="color:var(--slate);font-size:0.85rem;padding:12px 0">
         Your cart is empty.
-        <a href="shop.html"
-           style="color:var(--blue-light)">
+        <a href="shop.html" style="color:var(--blue-light)">
           Shop now
         </a>
       </div>
     `;
-
     renderCheckoutTotals();
     return;
   }
 
   container.innerHTML = cart.map(item => `
     <div class="order-item">
-
-      <div class="order-item-img">
-        ${item.emoji || '📦'}
-      </div>
+      <div class="order-item-img">${item.emoji || '📦'}</div>
 
       <div style="flex:1;min-width:0">
-        <div class="order-item-name">
-          ${item.name}
-        </div>
-
+        <div class="order-item-name">${item.name}</div>
         <div class="order-item-variant">
           ${item.variant || ''}
           · Qty: ${item.qty}
@@ -398,58 +316,34 @@ function renderCheckoutItems() {
       <div class="order-item-price">
         KES ${(item.price * item.qty).toLocaleString()}
       </div>
-
     </div>
   `).join('');
 
   renderCheckoutTotals();
 }
 
-function initiateMpesa() {
-
-  const phone =
-    document.getElementById('mpesaPhone')
-    .value.trim();
-
-  if (!phone) {
-    alert('Please enter your M-Pesa number');
-    return;
-  }
-
-  alert(
-    'M-Pesa integration requires a backend. Order will be saved first.'
-  );
-}
-
 async function placeOrder() {
 
   const firstName =
-    document.getElementById('firstName')
-    .value.trim();
+    document.getElementById('firstName').value.trim();
 
   const lastName =
-    document.getElementById('lastName')
-    .value.trim();
+    document.getElementById('lastName').value.trim();
 
   const email =
-    document.getElementById('email')
-    .value.trim();
+    document.getElementById('email').value.trim();
 
   const phone =
-    document.getElementById('phone')
-    .value.trim();
+    document.getElementById('phone').value.trim();
 
   const address =
-    document.getElementById('address')
-    .value.trim();
+    document.getElementById('address').value.trim();
 
   const city =
-    document.getElementById('city')
-    .value.trim();
+    document.getElementById('city').value.trim();
 
   const county =
-    document.getElementById('county')
-    .value;
+    document.getElementById('county').value;
 
   const cart = Cart.get();
 
@@ -470,31 +364,30 @@ async function placeOrder() {
 
   const total = subtotal + shippingCost;
 
+  console.log("Saving order...");
+
   const { data: order, error } =
     await supabase
       .from('orders')
       .insert({
-        customer_name:
-          `${firstName} ${lastName}`,
-
+        customer_name: `${firstName} ${lastName}`,
         customer_email: email,
         customer_phone: phone,
-
         shipping_address: address,
-
         city,
         county,
-
         total,
         status: 'pending'
       })
       .select()
       .single();
 
-  if (error) {
-    console.error(error);
-    alert('Failed to save order');
+  console.log("ORDER RESULT");
+  console.log(order);
+  console.log(error);
 
+  if (error) {
+    alert(error.message);
     return;
   }
 
@@ -511,31 +404,21 @@ async function placeOrder() {
       .insert(orderItems);
 
   if (itemError) {
-
     console.error(itemError);
-
-    alert(
-      'Failed to save order items'
-    );
-
+    alert(itemError.message);
     return;
   }
 
-  document.getElementById('orderNum')
-    .textContent =
-    '#' +
-    String(order.id)
-      .substring(0, 8)
-      .toUpperCase();
+  document.getElementById('orderNum').textContent =
+    '#' + String(order.id).substring(0, 8).toUpperCase();
 
   Cart.save([]);
 
-  document.getElementById(
-    'successModal'
-  ).style.display = 'flex';
+  document.getElementById('successModal').style.display = 'flex';
 }
 
 renderCheckoutItems();
+</script>
 </script>
 </body>
 </html>
