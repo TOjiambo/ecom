@@ -260,103 +260,7 @@ function updateShipping(val) {
 }
 
 function renderCheckoutTotals() {
-  const cart = Cart.get();
-
-  const subtotal = cart.reduce(
-    (sum, item) => sum + (item.price * item.qty),
-    0
-  );
-
-  const total = subtotal + shippingCost;
-
-  document.getElementById('checkoutSubtotal').textContent =
-    `KES ${subtotal.toLocaleString()}`;
-
-  document.getElementById('checkoutShipping').textContent =
-    shippingCost === 0
-      ? 'FREE'
-      : `KES ${shippingCost.toLocaleString()}`;
-
-  document.getElementById('checkoutDiscount').textContent = '—';
-
-  document.getElementById('checkoutTotal').textContent =
-    `KES ${total.toLocaleString()}`;
-}
-
-function renderCheckoutItems() {
-  const cart = window.Cart.get()
-  const container = document.getElementById('checkoutItems');
-
-  if (!container) return;
-
-  if (cart.length === 0) {
-    container.innerHTML = `
-      <div style="color:var(--slate);font-size:0.85rem;padding:12px 0">
-        Your cart is empty.
-        <a href="shop.html" style="color:var(--blue-light)">
-          Shop now
-        </a>
-      </div>
-    `;
-    renderCheckoutTotals();
-    return;
-  }
-
-  container.innerHTML = cart.map(item => `
-    <div class="order-item">
-      <div class="order-item-img">${item.emoji || '📦'}</div>
-
-      <div style="flex:1;min-width:0">
-        <div class="order-item-name">${item.name}</div>
-        <div class="order-item-variant">
-          ${item.variant || ''}
-          · Qty: ${item.qty}
-        </div>
-      </div>
-
-      <div class="order-item-price">
-        KES ${(item.price * item.qty).toLocaleString()}
-      </div>
-    </div>
-  `).join('');
-
-  renderCheckoutTotals();
-}
-
-async function placeOrder() {
-
-  const firstName =
-    document.getElementById('firstName').value.trim();
-
-  const lastName =
-    document.getElementById('lastName').value.trim();
-
-  const email =
-    document.getElementById('email').value.trim();
-
-  const phone =
-    document.getElementById('phone').value.trim();
-
-  const address =
-    document.getElementById('address').value.trim();
-
-  const city =
-    document.getElementById('city').value.trim();
-
-  const county =
-    document.getElementById('county').value;
-
-  const cart = window.Cart.get()
-
-  if (!firstName || !email || !address) {
-    alert('Please fill in all required fields');
-    return;
-  }
-
-  if (cart.length === 0) {
-    alert('Your cart is empty');
-    return;
-  }
+  const cart = window.Cart.get();
 
   const subtotal = cart.reduce(
     (sum, item) => sum + item.price * item.qty,
@@ -365,60 +269,36 @@ async function placeOrder() {
 
   const total = subtotal + shippingCost;
 
-  console.log("Saving order...");
+  document.getElementById('checkoutSubtotal').textContent =
+    `KES ${subtotal.toLocaleString()}`;
 
-  const { data: order, error } =
-    await supabase
-      .from('orders')
-      .insert({
-        customer_name: `${firstName} ${lastName}`,
-        customer_email: email,
-        customer_phone: phone,
-        shipping_address: address,
-        city,
-        county,
-        total,
-        status: 'pending'
-      })
-      .select()
-      .single();
-
-  console.log("ORDER RESULT");
-  console.log(order);
-  console.log(error);
-
-  if (error) {
-    alert(error.message);
-    return;
-  }
-
-  const orderItems = cart.map(item => ({
-    order_id: order.id,
-    product_id: item.id,
-    quantity: item.qty,
-    price: item.price
-  }));
-
-  const { error: itemError } =
-    await supabase
-      .from('order_items')
-      .insert(orderItems);
-
-  if (itemError) {
-    console.error(itemError);
-    alert(itemError.message);
-    return;
-  }
-
-  document.getElementById('orderNum').textContent =
-    '#' + String(order.id).substring(0, 8).toUpperCase();
-
-  Cart.save([]);
-
-  document.getElementById('successModal').style.display = 'flex';
+  document.getElementById('checkoutTotal').textContent =
+    `KES ${total.toLocaleString()}`;
 }
 
-renderCheckoutItems();
+function renderCheckoutItems() {
+  const cart = window.Cart.get();
+  const container = document.getElementById('checkoutItems');
+
+  if (!container) return;
+
+  if (!cart.length) {
+    container.innerHTML = `
+      <div style="padding:10px;color:gray">
+        Cart is empty
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = cart.map(item => `
+    <div class="order-item">
+      <div>${item.name}</div>
+      <div>${item.qty} × KES ${item.price}</div>
+    </div>
+  `).join('');
+
+  renderCheckoutTotals();
+}
 </script>
 </body>
 </html>
