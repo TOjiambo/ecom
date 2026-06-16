@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Account — Voltex Electronics</title>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+<script src="../js/components.js"></script>
+<script>injectNavbar(1);</script>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a><span class="sep">›</span><span>My Account</span>
+    </div>
+    <h1>My Account</h1>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="account-layout">
+
+      <!-- SIDEBAR NAV -->
+      <div class="account-nav">
+        <div class="account-nav-header">
+          <div class="account-avatar-lg">👤</div>
+          <div class="account-nav-name" id="accountName">John Doe</div>
+          <div class="account-nav-email" id="accountEmail">john@example.com</div>
+        </div>
+        <div class="account-nav-links">
+          <div class="account-nav-link active" onclick="showTab('orders',this)">📦 Order History</div>
+          <div class="account-nav-link" onclick="showTab('profile',this)">👤 Profile</div>
+          <div class="account-nav-link" onclick="showTab('addresses',this)">📍 Addresses</div>
+          <div class="account-nav-link" onclick="showTab('wishlist',this)">♡ Wishlist</div>
+          <div class="account-nav-link" onclick="showTab('notifications',this)">🔔 Notifications</div>
+          <div class="divider" style="margin:8px 0"></div>
+          <div class="account-nav-link" onclick="handleLogout()" style="color:var(--danger)">🚪 Sign Out</div>
+        </div>
+      </div>
+
+      <!-- CONTENT AREA -->
+      <div>
+
+        <!-- ORDERS TAB -->
+        <div id="tab-orders" class="account-content-card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+            <h3 style="font-family:var(--font-display)">Order History</h3>
+            <a href="shop.html" class="btn btn-primary btn-sm">Shop Again</a>
+          </div>
+          <div class="order-row" style="border-bottom:1px solid var(--border);padding-bottom:14px;margin-bottom:4px">
+            <div style="font-size:0.75rem;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.06em">Order</div>
+            <div style="font-size:0.75rem;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.06em">Items</div>
+            <div style="font-size:0.75rem;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.06em">Status</div>
+            <div style="font-size:0.75rem;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.06em;text-align:right">Total</div>
+          </div>
+          ${[
+            { id:'VTX-48291', date:'Dec 10, 2024', items:'MacBook Pro M3 + AirPods Pro', status:'Delivered', statusClass:'status-delivered', total:'KES 218,000' },
+            { id:'VTX-47103', date:'Nov 28, 2024', items:'Samsung Galaxy S24 Ultra', status:'Shipped', statusClass:'status-shipped', total:'KES 149,000' },
+            { id:'VTX-45889', date:'Nov 15, 2024', items:'Sony WH-1000XM5 × 2', status:'Delivered', statusClass:'status-delivered', total:'KES 77,000' },
+            { id:'VTX-44201', date:'Oct 30, 2024', items:'Logitech MX Master 3S', status:'Processing', statusClass:'status-processing', total:'KES 12,500' },
+          ].map(o => `
+          <div class="order-row">
+            <div>
+              <div class="order-id">#${o.id}</div>
+              <div class="order-date">${o.date}</div>
+            </div>
+            <div style="font-size:0.85rem;color:var(--slate-light)">${o.items}</div>
+            <div><span class="order-status ${o.statusClass}">${o.status}</span></div>
+            <div style="text-align:right;font-family:var(--font-display);font-weight:700;color:var(--white);font-size:0.9rem">${o.total}</div>
+          </div>`).join('')}
+        </div>
+
+        <!-- PROFILE TAB -->
+        <div id="tab-profile" class="account-content-card" style="display:none">
+          <h3 style="font-family:var(--font-display);margin-bottom:24px">Profile Information</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+            <div><label>First Name</label><input type="text" value="John" id="profFirst"></div>
+            <div><label>Last Name</label><input type="text" value="Doe" id="profLast"></div>
+          </div>
+          <div style="margin-bottom:16px"><label>Email Address</label><input type="email" value="john@example.com" id="profEmail"></div>
+          <div style="margin-bottom:16px"><label>Phone Number</label><input type="tel" value="+254 700 000 000" id="profPhone"></div>
+          <div class="divider"></div>
+          <h4 style="font-family:var(--font-display);margin-bottom:16px">Change Password</h4>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+            <div><label>Current Password</label><input type="password" placeholder="••••••••"></div>
+            <div><label>New Password</label><input type="password" placeholder="••••••••"></div>
+          </div>
+          <button class="btn btn-primary" onclick="Toast.show('Profile updated successfully!','success')">Save Changes</button>
+        </div>
+
+        <!-- ADDRESSES TAB -->
+        <div id="tab-addresses" class="account-content-card" style="display:none">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+            <h3 style="font-family:var(--font-display)">Saved Addresses</h3>
+            <button class="btn btn-primary btn-sm">+ Add Address</button>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div style="border:1.5px solid var(--blue);border-radius:var(--radius-md);padding:20px;position:relative">
+              <span class="badge badge-blue" style="position:absolute;top:12px;right:12px">Default</span>
+              <div style="font-weight:700;font-family:var(--font-display);margin-bottom:8px">🏠 Home</div>
+              <div style="font-size:0.85rem;color:var(--slate-light);line-height:1.8">
+                John Doe<br>Westlands, Waiyaki Way<br>Nairobi, 00100<br>+254 700 000 000
+              </div>
+              <div style="display:flex;gap:8px;margin-top:14px">
+                <button class="btn btn-ghost btn-sm" style="padding:6px 12px">Edit</button>
+                <button class="btn btn-ghost btn-sm" style="padding:6px 12px;color:var(--danger)">Delete</button>
+              </div>
+            </div>
+            <div style="border:1px dashed var(--border);border-radius:var(--radius-md);padding:20px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;cursor:pointer;transition:var(--transition)" onmouseover="this.style.borderColor='var(--blue)'" onmouseout="this.style.borderColor='var(--border)'">
+              <div style="font-size:2rem">+</div>
+              <div style="font-size:0.85rem;color:var(--slate)">Add New Address</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- WISHLIST TAB -->
+        <div id="tab-wishlist" class="account-content-card" style="display:none">
+          <h3 style="font-family:var(--font-display);margin-bottom:24px">My Wishlist</h3>
+          <div id="wishlistItems">
+            <div style="text-align:center;padding:40px;color:var(--slate)">
+              <div style="font-size:2.5rem;margin-bottom:12px">♡</div>
+              <div style="font-weight:600;font-family:var(--font-display);color:var(--white)">No saved items yet</div>
+              <div style="font-size:0.85rem;margin-top:6px">Browse our shop and click ♡ to save items</div>
+              <a href="shop.html" class="btn btn-primary mt-16 btn-sm">Browse Shop →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- NOTIFICATIONS TAB -->
+        <div id="tab-notifications" class="account-content-card" style="display:none">
+          <h3 style="font-family:var(--font-display);margin-bottom:24px">Notification Preferences</h3>
+          ${[
+            { label:'Order Updates', desc:'Receive updates when your order status changes', checked:true },
+            { label:'Payment Confirmations', desc:'Get notified when payments are received', checked:true },
+            { label:'New Arrivals', desc:'Be the first to know about new products', checked:false },
+            { label:'Deals & Promotions', desc:'Exclusive discounts and flash sales', checked:true },
+            { label:'Low Stock Alerts', desc:'Alert when wishlisted items are running low', checked:true },
+          ].map(n => `
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--border)">
+              <div>
+                <div style="font-weight:600;font-family:var(--font-display);font-size:0.92rem">${n.label}</div>
+                <div style="font-size:0.8rem;color:var(--slate);margin-top:3px">${n.desc}</div>
+              </div>
+              <label style="position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0;margin-left:16px;cursor:pointer">
+                <input type="checkbox" ${n.checked?'checked':''} style="opacity:0;width:0;height:0" onchange="Toast.show('Preference saved','success')">
+                <span style="position:absolute;cursor:pointer;inset:0;background:${n.checked?'var(--blue)':'var(--navy-light)'};border-radius:999px;border:1px solid var(--border);transition:.3s" onclick="this.style.background=this.style.background==='rgb(37,99,235)'?'var(--navy-light)':'var(--blue)'">
+                  <span style="position:absolute;height:18px;width:18px;left:${n.checked?'23':'2'}px;bottom:2px;background:white;border-radius:50%;transition:.3s"></span>
+                </span>
+              </label>
+            </div>`).join('')}
+          <button class="btn btn-primary mt-16" onclick="Toast.show('Preferences saved!','success')">Save Preferences</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>injectFooter(1);</script>
+<script src="../js/main.js"></script>
+<script>
+// Load user data
+const user = JSON.parse(localStorage.getItem('voltex_user') || '{"name":"John Doe","email":"john@example.com"}');
+document.getElementById('accountName').textContent = user.name || 'Guest';
+document.getElementById('accountEmail').textContent = user.email || '';
+
+const tabs = { orders:'tab-orders', profile:'tab-profile', addresses:'tab-addresses', wishlist:'tab-wishlist', notifications:'tab-notifications' };
+
+function showTab(name, el) {
+  Object.values(tabs).forEach(id => { const t = document.getElementById(id); if(t) t.style.display='none'; });
+  const tab = document.getElementById(tabs[name]);
+  if (tab) tab.style.display = 'block';
+  document.querySelectorAll('.account-nav-link').forEach(l => l.classList.remove('active'));
+  if (el) el.classList.add('active');
+}
+
+function handleLogout() {
+  localStorage.removeItem('voltex_user');
+  Toast.show('Signed out successfully', 'info');
+  setTimeout(() => window.location.href = 'login.html', 1000);
+}
+
+// Check URL for tab
+const params = new URLSearchParams(location.search);
+if (params.get('tab')) {
+  const t = params.get('tab');
+  const el = document.querySelector(`.account-nav-link:nth-child(${Object.keys(tabs).indexOf(t)+1})`);
+  showTab(t, el);
+}
+</script>
+<script src="cart.js"></script>
+</body>
+</html>

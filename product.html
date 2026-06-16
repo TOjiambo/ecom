@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product — Voltex Electronics</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+<script src="components.js"></script>
+<script>injectNavbar(1);</script>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="sep">›</span>
+      <a href="shop.html">Shop</a>
+      <span class="sep">›</span>
+      <span id="breadProduct">Product</span>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="product-detail-grid" id="productDetail">
+      <div style="text-align:center;padding:80px;color:var(--slate)">Loading product...</div>
+    </div>
+  </div>
+</section>
+
+<!-- TABS: Description, Specs, Reviews -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="tab-desc" onclick="switchTab('tab-desc')">Description</button>
+      <button class="tab-btn" data-tab="tab-specs" onclick="switchTab('tab-specs')">Specifications</button>
+      <button class="tab-btn" data-tab="tab-reviews" onclick="switchTab('tab-reviews')">Reviews (128)</button>
+    </div>
+    <div id="tab-desc" class="tab-content active">
+      <div style="max-width:740px">
+        <p style="margin-bottom:16px">Experience professional-grade performance with the latest technology packed into a premium device. Designed for creators, professionals, and power users who demand the best.</p>
+        <p style="margin-bottom:16px">With an industry-leading display and all-day battery life, you can work, create, and play without compromise. The advanced thermal system keeps performance sustained even under heavy workloads.</p>
+        <ul style="color:var(--slate-light);font-size:0.9rem;line-height:2;padding-left:20px;list-style:disc">
+          <li>Ultra-fast processor for demanding workflows</li>
+          <li>Stunning Liquid Retina XDR display with ProMotion</li>
+          <li>Up to 22 hours battery life</li>
+          <li>Advanced connectivity: Thunderbolt 4, HDMI, SD card</li>
+          <li>Studio-quality microphone array and speakers</li>
+        </ul>
+      </div>
+    </div>
+    <div id="tab-specs" class="tab-content">
+      <div style="max-width:600px">
+        <table style="width:100%;border-collapse:collapse">
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:12px 0;color:var(--slate);font-size:0.88rem;width:40%">Processor</td>
+            <td style="padding:12px 0;font-size:0.88rem;color:var(--white)">Apple M3 Pro 12-core</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:12px 0;color:var(--slate);font-size:0.88rem">Memory</td>
+            <td style="padding:12px 0;font-size:0.88rem;color:var(--white)">18GB Unified Memory</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:12px 0;color:var(--slate);font-size:0.88rem">Storage</td>
+            <td style="padding:12px 0;font-size:0.88rem;color:var(--white)">512GB SSD</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:12px 0;color:var(--slate);font-size:0.88rem">Display</td>
+            <td style="padding:12px 0;font-size:0.88rem;color:var(--white)">14.2" Liquid Retina XDR, 3024×1964</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:12px 0;color:var(--slate);font-size:0.88rem">Battery</td>
+            <td style="padding:12px 0;font-size:0.88rem;color:var(--white)">Up to 18 hours</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:12px 0;color:var(--slate);font-size:0.88rem">Weight</td>
+            <td style="padding:12px 0;font-size:0.88rem;color:var(--white)">1.55 kg</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 0;color:var(--slate);font-size:0.88rem">OS</td>
+            <td style="padding:12px 0;font-size:0.88rem;color:var(--white)">macOS Sonoma</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div id="tab-reviews" class="tab-content">
+      <div style="max-width:700px">
+        <div style="display:flex;align-items:center;gap:32px;margin-bottom:32px;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px">
+          <div style="text-align:center">
+            <div style="font-size:3rem;font-weight:700;font-family:var(--font-display)">4.9</div>
+            <div style="color:var(--amber);font-size:1.2rem">★★★★★</div>
+            <div style="font-size:0.8rem;color:var(--slate);margin-top:4px">128 reviews</div>
+          </div>
+          <div style="flex:1">
+            ${[5,4,3,2,1].map((s,i) => {
+              const pcts = [72,18,6,3,1];
+              return `<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+                <span style="font-size:0.8rem;color:var(--slate);width:12px">${s}</span>
+                <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+                  <div style="height:100%;width:${pcts[i]}%;background:var(--amber);border-radius:3px"></div>
+                </div>
+                <span style="font-size:0.75rem;color:var(--slate);width:28px">${pcts[i]}%</span>
+              </div>`;
+            }).join('')}
+          </div>
+        </div>
+        ${[
+          { name:'Brian M.', rating:5, date:'Dec 2024', text:'Absolutely incredible machine. The M3 chip handles everything I throw at it — 4K video editing, Lightroom, everything. Battery life is unreal.' },
+          { name:'Amina H.', rating:5, date:'Nov 2024', text:'Delivered to Nairobi in one day. Packaging was secure and the laptop was pristine. Great price from Voltex.' },
+          { name:'David K.', rating:4, date:'Nov 2024', text:'Excellent performance. Took off one star only because I wish it came with more ports out of the box, but the dongle works fine.' },
+        ].map(r => `
+          <div style="border-bottom:1px solid var(--border);padding:20px 0">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+              <div class="testimonial-avatar" style="width:36px;height:36px;font-size:0.9rem">👤</div>
+              <div>
+                <div style="font-weight:600;font-family:var(--font-display);font-size:0.9rem">${r.name}</div>
+                <div style="color:var(--amber);font-size:0.78rem;margin-top:1px">${'★'.repeat(r.rating)}</div>
+              </div>
+              <div style="margin-left:auto;font-size:0.78rem;color:var(--slate)">${r.date}</div>
+            </div>
+            <p style="font-size:0.88rem">${r.text}</p>
+          </div>`).join('')}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RELATED PRODUCTS -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="section-header flex-between">
+      <div>
+        <div class="section-eyebrow">You may also like</div>
+        <h2 class="section-title">Related Products</h2>
+      </div>
+    </div>
+    <div class="products-grid" id="relatedProducts"></div>
+  </div>
+</section>
+
+<script>injectFooter(1);</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="main.js"></script>
+<script>
+
+
+const params = new URLSearchParams(location.search);
+const pid = params.get('id');
+
+// fallback safety
+if (!pid) {
+  document.getElementById('productDetail').innerHTML =
+    "<p style='color:white'>No product selected</p>";
+}
+
+// LOAD PRODUCT FROM SUPABASE
+async function loadProduct() {
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .eq("id", pid)
+    .single();
+
+  if (error || !data) {
+    document.getElementById('productDetail').innerHTML =
+      "<p style='color:red'>Product not found</p>";
+    return;
+  }
+
+  renderProduct(data);
+  loadRelated(data.category, data.id);
+}
+
+loadProduct();
+
+// Related products
+const related = products.filter(p => p.id !== product.id).slice(0,4);
+document.getElementById('relatedProducts').innerHTML = related.map(p => `
+  <div class="product-card">
+    <div class="product-img-wrap">
+      <div>${p.emoji}</div>
+      <div class="product-badges">${p.badge?`<span class="badge ${p.badge==='NEW'?'badge-new':'badge-sale'}">${p.badge}</span>`:''}</div>
+    </div>
+    <div class="product-info">
+      <div class="product-category">${p.cat}</div>
+      <a href="product.html?id=${p.id}"><div class="product-name">${p.name}</div></a>
+      <div class="product-rating">
+        <div class="stars">${'★'.repeat(Math.floor(p.rating))}</div>
+        <div class="rating-count">(${p.reviews})</div>
+      </div>
+      <div class="product-price-row">
+        <div class="product-price">KES ${p.price.toLocaleString()}</div>
+        <button class="add-to-cart-mini" onclick="Cart.add({id:'${p.id}',name:'${p.name}',price:${p.price},emoji:'${p.emoji}',variant:''})">+</button>
+      </div>
+    </div>
+  </div>`).join('');
+
+function renderProduct(product) {
+  document.getElementById('breadProduct').textContent = product.name;
+  document.title = `${product.name} — Voltex Electronics`;
+
+  document.getElementById('productDetail').innerHTML = `
+    <div class="product-gallery">
+      <div class="gallery-main">${product.image_urls?.[0] || "📦"}</div>
+    </div>
+
+    <div class="product-detail-info">
+      <h1 class="product-detail-title">${product.name}</h1>
+
+      <div class="product-detail-price">
+        <div class="detail-price">KES ${product.price}</div>
+      </div>
+
+      <p class="product-detail-desc">
+        ${product.description || "No description available"}
+      </p>
+
+      <div class="qty-row">
+        <div class="qty-control">
+          <button class="qty-btn" onclick="changeQty(-1)">−</button>
+          <input class="qty-input" id="mainQty" value="1">
+          <button class="qty-btn" onclick="changeQty(1)">+</button>
+        </div>
+      </div>
+
+      <div class="detail-actions">
+        <button class="btn btn-primary btn-lg" onclick="addDetailToCart('${product.id}', '${product.name}', ${product.price})">
+          🛒 Add to Cart
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+async function loadRelated(category, currentId) {
+  const { data } = await supabase
+    .from("products")
+    .select("*")
+    .eq("category", category)
+    .neq("id", currentId)
+    .limit(4);
+
+  document.getElementById('relatedProducts').innerHTML = data.map(p => `
+    <div class="product-card">
+      <div>${p.image_urls?.[0] || "📦"}</div>
+      <div class="product-info">
+        <div class="product-category">${p.category}</div>
+        <a href="product.html?id=${p.id}">
+          <div class="product-name">${p.name}</div>
+        </a>
+        <div class="product-price">KES ${p.price}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addDetailToCart(id, name, price) {
+  const qty = parseInt(document.getElementById('mainQty').value) || 1;
+
+  const item = {
+    id,
+    name,
+    price,
+    qty
+  };
+
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.push(item);
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  alert("Added to cart");
+}
+</script>
+<script src="cart.js"></script>
+</body>
+</html>

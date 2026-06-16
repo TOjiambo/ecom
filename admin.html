@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — Voltex</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body style="background:var(--navy)">
+
+<!-- ADMIN LAYOUT (no shared navbar) -->
+<div class="admin-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="admin-sidebar">
+    <div class="admin-logo">
+      <div class="nav-logo" style="font-size:1.2rem"><span class="bolt">⚡</span>Volt<span>ex</span> <span style="font-size:0.65rem;color:var(--slate);margin-left:4px;font-weight:400">ADMIN</span></div>
+    </div>
+    <nav class="admin-nav">
+      <div class="admin-nav-section">Overview</div>
+      <div class="admin-nav-link active" onclick="showAdminTab('dashboard',this)">📊 Dashboard</div>
+      <div class="admin-nav-link" onclick="showAdminTab('analytics',this)">📈 Analytics</div>
+
+      <div class="admin-nav-section">Commerce</div>
+      <div class="admin-nav-link" onclick="showAdminTab('orders',this)">
+        📦 Orders
+        <span class="admin-nav-badge">8</span>
+      </div>
+      <div class="admin-nav-link" onclick="showAdminTab('products',this)">🏷️ Products</div>
+      <div class="admin-nav-link" onclick="showAdminTab('inventory',this)">📋 Inventory</div>
+      <div class="admin-nav-link" onclick="showAdminTab('customers',this)">👥 Customers</div>
+
+      <div class="admin-nav-section">Finance</div>
+      <div class="admin-nav-link" onclick="showAdminTab('payments',this)">💳 Payments</div>
+      <div class="admin-nav-link" onclick="showAdminTab('shipping',this)">🚚 Shipping</div>
+
+      <div class="admin-nav-section">Settings</div>
+      <div class="admin-nav-link" onclick="showAdminTab('settings',this)">⚙️ Settings</div>
+    </nav>
+    <div style="padding:16px 20px;border-top:1px solid var(--border)">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="nav-avatar">AD</div>
+        <div>
+          <div style="font-size:0.82rem;font-weight:600;font-family:var(--font-display)">Admin User</div>
+          <div style="font-size:0.72rem;color:var(--slate)">Super Admin</div>
+        </div>
+        <a href="login.html" style="margin-left:auto;color:var(--slate);font-size:0.8rem" title="Sign out">⏏</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <div class="admin-content">
+    <div class="admin-topbar">
+      <div class="admin-page-title" id="adminPageTitle">Dashboard</div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <input type="search" placeholder="Search..." style="width:220px;padding:8px 14px;font-size:0.85rem">
+        <button class="nav-action-btn" title="Notifications" style="position:relative">
+          🔔
+          <span class="nav-badge">3</span>
+        </button>
+        <a href="index.html" class="btn btn-secondary btn-sm">← View Store</a>
+      </div>
+    </div>
+
+    <!-- ═══ DASHBOARD TAB ═══ -->
+    <div class="admin-main" id="tab-admin-dashboard">
+
+      <!-- STAT CARDS -->
+      <div class="stat-cards">
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <div>
+              <div class="stat-label">Total Revenue</div>
+              <div class="stat-num">KES 2.4M</div>
+            </div>
+            <div class="stat-card-icon" style="background:rgba(37,99,235,0.12)">💰</div>
+          </div>
+          <div class="stat-trend trend-up">↑ +18.2% from last month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <div>
+              <div class="stat-label">Total Orders</div>
+              <div class="stat-num">1,284</div>
+            </div>
+            <div class="stat-card-icon" style="background:rgba(16,185,129,0.12)">📦</div>
+          </div>
+          <div class="stat-trend trend-up">↑ +12.5% from last month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <div>
+              <div class="stat-label">Customers</div>
+              <div class="stat-num">8,492</div>
+            </div>
+            <div class="stat-card-icon" style="background:rgba(245,158,11,0.12)">👥</div>
+          </div>
+          <div class="stat-trend trend-up">↑ +7.1% from last month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <div>
+              <div class="stat-label">Products</div>
+              <div class="stat-num">380</div>
+            </div>
+            <div class="stat-card-icon" style="background:rgba(139,92,246,0.12)">🏷️</div>
+          </div>
+          <div class="stat-trend trend-down">↓ 3 out of stock</div>
+        </div>
+      </div>
+
+      <!-- REVENUE CHART -->
+      <div class="table-card" style="margin-bottom:24px;padding:20px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+          <div class="table-card-title">Revenue Overview</div>
+          <select class="sort-select" style="width:auto">
+            <option>Last 7 Days</option>
+            <option selected>Last 30 Days</option>
+            <option>Last 3 Months</option>
+          </select>
+        </div>
+        <div class="chart-placeholder">
+          <div class="chart-bars">
+            ${[40,65,45,80,55,90,70,85,60,95,75,88].map(h =>
+              `<div class="chart-bar" style="height:${h}%"></div>`).join('')}
+          </div>
+          <div style="position:absolute;top:12px;left:20px;font-size:0.75rem;color:var(--slate)">Revenue (KES)</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--slate);margin-top:8px;padding:0 4px">
+          <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
+          <span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
+        </div>
+      </div>
+
+      <!-- RECENT ORDERS + TOP PRODUCTS -->
+      <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:24px">
+
+        <!-- RECENT ORDERS -->
+        <div class="table-card">
+          <div class="table-card-header">
+            <div class="table-card-title">Recent Orders</div>
+            <button class="btn btn-ghost btn-sm" onclick="showAdminTab('orders',null)">View All →</button>
+          </div>
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Order</th>
+                <th>Customer</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Payment</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${[
+                { id:'VTX-48301', customer:'Brian Mwangi', amount:'KES 189,000', status:'Paid', payment:'M-Pesa', statusColor:'var(--success)' },
+                { id:'VTX-48300', customer:'Amina Hassan', amount:'KES 38,500', status:'Shipped', payment:'PayPal', statusColor:'var(--amber)' },
+                { id:'VTX-48299', customer:'David Kipchoge', amount:'KES 9,800', status:'Processing', payment:'M-Pesa', statusColor:'var(--blue-light)' },
+                { id:'VTX-48298', customer:'Faith Njeri', amount:'KES 125,000', status:'Pending', payment:'PayPal', statusColor:'var(--slate)' },
+                { id:'VTX-48297', customer:'Peter Otieno', amount:'KES 21,500', status:'Delivered', payment:'M-Pesa', statusColor:'var(--success)' },
+              ].map(o => `<tr>
+                <td>${o.id}</td>
+                <td style="color:var(--slate-light)">${o.customer}</td>
+                <td style="font-family:var(--font-display);color:var(--white)">${o.amount}</td>
+                <td><span style="color:${o.statusColor};font-size:0.78rem;font-weight:600">${o.status}</span></td>
+                <td><span class="badge ${o.payment==='M-Pesa'?'badge-green':'badge-blue'}">${o.payment}</span></td>
+              </tr>`).join('')}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- TOP PRODUCTS -->
+        <div class="table-card">
+          <div class="table-card-header">
+            <div class="table-card-title">Top Products</div>
+          </div>
+          <div style="padding:0 4px">
+            ${[
+              { name:'MacBook Pro M3', sales:48, revenue:'KES 9.1M', emoji:'💻', pct:90 },
+              { name:'Galaxy S24 Ultra', sales:36, revenue:'KES 5.4M', emoji:'📱', pct:70 },
+              { name:'Sony WH-1000XM5', sales:89, revenue:'KES 3.4M', emoji:'🎧', pct:55 },
+              { name:'AirPods Pro 2', sales:104, revenue:'KES 3.0M', emoji:'🎵', pct:48 },
+            ].map(p => `
+              <div style="padding:14px 16px;border-bottom:1px solid var(--border)">
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+                  <span style="font-size:1.3rem">${p.emoji}</span>
+                  <div style="flex:1;min-width:0">
+                    <div style="font-size:0.85rem;font-weight:600;font-family:var(--font-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.name}</div>
+                    <div style="font-size:0.75rem;color:var(--slate)">${p.sales} sold · ${p.revenue}</div>
+                  </div>
+                </div>
+                <div style="height:4px;background:var(--border);border-radius:2px">
+                  <div style="height:100%;width:${p.pct}%;background:var(--blue);border-radius:2px"></div>
+                </div>
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ ORDERS TAB ═══ -->
+    <div class="admin-main" id="tab-admin-orders" style="display:none">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <div style="display:flex;gap:8px">
+          ${['All','Pending','Paid','Processing','Shipped','Delivered','Cancelled'].map((s,i) =>
+            `<button class="btn btn-sm ${i===0?'btn-primary':'btn-secondary'}" onclick="filterOrders(this,'${s}')">${s}</button>`).join('')}
+        </div>
+        <div style="display:flex;gap:8px">
+          <input type="search" placeholder="Search order / customer..." style="width:240px;padding:8px 14px;font-size:0.85rem">
+          <button class="btn btn-secondary btn-sm">Export CSV</button>
+        </div>
+      </div>
+      <div class="table-card">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th><input type="checkbox"></th>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Date</th>
+              <th>Items</th>
+              <th>Total</th>
+              <th>Payment</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${[
+              { id:'VTX-48301', cust:'Brian Mwangi', date:'Dec 10, 2024', items:2, total:'KES 218,000', payment:'M-Pesa', status:'Delivered', sc:'status-delivered' },
+              { id:'VTX-48300', cust:'Amina Hassan', date:'Dec 9, 2024', items:1, total:'KES 38,500', payment:'PayPal', status:'Shipped', sc:'status-shipped' },
+              { id:'VTX-48299', cust:'David Kipchoge', date:'Dec 9, 2024', items:3, total:'KES 32,300', payment:'M-Pesa', status:'Processing', sc:'status-processing' },
+              { id:'VTX-48298', cust:'Faith Njeri', date:'Dec 8, 2024', items:1, total:'KES 125,000', payment:'PayPal', status:'Paid', sc:'status-processing' },
+              { id:'VTX-48297', cust:'Peter Otieno', date:'Dec 8, 2024', items:2, total:'KES 51,500', payment:'M-Pesa', status:'Delivered', sc:'status-delivered' },
+            ].map(o => `<tr>
+              <td><input type="checkbox"></td>
+              <td>${o.id}</td>
+              <td style="color:var(--slate-light)">${o.cust}</td>
+              <td style="color:var(--slate);font-size:0.8rem">${o.date}</td>
+              <td style="color:var(--slate-light)">${o.items} item${o.items>1?'s':''}</td>
+              <td style="font-family:var(--font-display);color:var(--white)">${o.total}</td>
+              <td><span class="badge ${o.payment==='M-Pesa'?'badge-green':'badge-blue'}">${o.payment}</span></td>
+              <td><span class="order-status ${o.sc}">${o.status}</span></td>
+              <td>
+                <div style="display:flex;gap:6px">
+                  <button class="btn btn-ghost btn-sm" style="padding:4px 8px" title="View">👁</button>
+                  <button class="btn btn-ghost btn-sm" style="padding:4px 8px" title="Invoice">🧾</button>
+                  <select style="background:var(--navy-light);border:1px solid var(--border);color:var(--white);padding:4px 8px;border-radius:var(--radius-sm);font-size:0.75rem" onchange="Toast.show('Order status updated','success')">
+                    <option>Update Status</option>
+                    <option>Processing</option>
+                    <option>Shipped</option>
+                    <option>Delivered</option>
+                    <option>Cancelled</option>
+                  </select>
+                </div>
+              </td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ═══ PRODUCTS TAB ═══ -->
+    <div class="admin-main" id="tab-admin-products" style="display:none">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <h2 style="font-family:var(--font-display);font-size:1.2rem">Products</h2>
+        <div style="display:flex;gap:8px">
+          <input type="search" placeholder="Search products..." style="width:220px;padding:8px 14px;font-size:0.85rem">
+          <button class="btn btn-primary btn-sm" onclick="Toast.show('Product form coming soon','info')">+ Add Product</button>
+        </div>
+      </div>
+      <div class="table-card">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th><input type="checkbox"></th>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Sales</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${[
+              { emoji:'💻', name:'MacBook Pro M3 14"', cat:'Laptops', price:'KES 189,000', stock:14, sales:48, status:'Active' },
+              { emoji:'📱', name:'Samsung Galaxy S24 Ultra', cat:'Smartphones', price:'KES 149,000', stock:8, sales:36, status:'Active' },
+              { emoji:'🎧', name:'Sony WH-1000XM5', cat:'Audio', price:'KES 38,500', stock:0, sales:89, status:'Out of Stock' },
+              { emoji:'🎮', name:'PS5 DualSense Controller', cat:'Gaming', price:'KES 9,800', stock:22, sales:67, status:'Active' },
+              { emoji:'📲', name:'iPad Pro 12.9" M2', cat:'Tablets', price:'KES 125,000', stock:3, sales:31, status:'Low Stock' },
+            ].map(p => `<tr>
+              <td><input type="checkbox"></td>
+              <td>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div style="width:36px;height:36px;background:var(--navy-light);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center">${p.emoji}</div>
+                  <span style="font-weight:500">${p.name}</span>
+                </div>
+              </td>
+              <td style="color:var(--slate-light)">${p.cat}</td>
+              <td style="font-family:var(--font-display)">${p.price}</td>
+              <td style="color:${p.stock===0?'var(--danger)':p.stock<5?'var(--amber)':'var(--success)'};font-weight:600">${p.stock}</td>
+              <td style="color:var(--slate-light)">${p.sales}</td>
+              <td><span class="order-status ${p.status==='Active'?'status-delivered':p.status==='Low Stock'?'status-shipped':'badge-red'}">${p.status}</span></td>
+              <td>
+                <div style="display:flex;gap:6px">
+                  <button class="btn btn-ghost btn-sm" style="padding:4px 10px" onclick="Toast.show('Edit form coming soon','info')">Edit</button>
+                  <button class="btn btn-ghost btn-sm" style="padding:4px 10px;color:var(--danger)" onclick="Toast.show('Product deleted','error')">Del</button>
+                </div>
+              </td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ═══ INVENTORY TAB ═══ -->
+    <div class="admin-main" id="tab-admin-inventory" style="display:none">
+      <h2 style="font-family:var(--font-display);font-size:1.2rem;margin-bottom:20px">Inventory Management</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px">
+        <div class="stat-card">
+          <div class="stat-card-header"><div><div class="stat-label">Total SKUs</div><div class="stat-num">380</div></div><div class="stat-card-icon" style="background:rgba(37,99,235,0.12)">🏷️</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-header"><div><div class="stat-label">Low Stock Items</div><div class="stat-num" style="color:var(--amber)">14</div></div><div class="stat-card-icon" style="background:rgba(245,158,11,0.12)">⚠️</div></div>
+          <div class="stat-trend" style="color:var(--amber)">Needs restocking</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-header"><div><div class="stat-label">Out of Stock</div><div class="stat-num" style="color:var(--danger)">3</div></div><div class="stat-card-icon" style="background:rgba(239,68,68,0.12)">🚫</div></div>
+          <div class="stat-trend trend-down">Action required</div>
+        </div>
+      </div>
+      <div class="table-card">
+        <div class="table-card-header">
+          <div class="table-card-title">Stock Levels</div>
+          <button class="btn btn-primary btn-sm" onclick="Toast.show('Export ready','success')">Export Report</button>
+        </div>
+        <table class="admin-table">
+          <thead><tr><th>Product</th><th>SKU</th><th>In Stock</th><th>Reserved</th><th>Reorder At</th><th>Action</th></tr></thead>
+          <tbody>
+            ${[
+              { emoji:'💻', name:'MacBook Pro M3', sku:'VTX-P1-001', stock:14, reserved:2, reorder:5 },
+              { emoji:'📱', name:'Galaxy S24 Ultra', sku:'VTX-P2-001', stock:8, reserved:3, reorder:10 },
+              { emoji:'🎧', name:'Sony WH-1000XM5', sku:'VTX-P3-001', stock:0, reserved:0, reorder:15 },
+              { emoji:'📲', name:'iPad Pro 12.9"', sku:'VTX-P5-001', stock:3, reserved:1, reorder:8 },
+            ].map(p => `<tr>
+              <td><div style="display:flex;align-items:center;gap:10px"><span>${p.emoji}</span>${p.name}</div></td>
+              <td style="color:var(--slate);font-size:0.8rem">${p.sku}</td>
+              <td>
+                <span style="color:${p.stock===0?'var(--danger)':p.stock<=p.reorder?'var(--amber)':'var(--success)'};font-weight:700">${p.stock}</span>
+                ${p.stock===0?'<span class="badge badge-red" style="margin-left:6px">OUT</span>':p.stock<=p.reorder?'<span class="badge badge-amber" style="margin-left:6px">LOW</span>':''}
+              </td>
+              <td style="color:var(--slate-light)">${p.reserved}</td>
+              <td style="color:var(--slate-light)">${p.reorder} units</td>
+              <td><button class="btn btn-secondary btn-sm" onclick="Toast.show('Restock form coming soon','info')">+ Restock</button></td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ═══ CUSTOMERS TAB ═══ -->
+    <div class="admin-main" id="tab-admin-customers" style="display:none">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <h2 style="font-family:var(--font-display);font-size:1.2rem">Customers</h2>
+        <input type="search" placeholder="Search by name / email..." style="width:260px;padding:8px 14px;font-size:0.85rem">
+      </div>
+      <div class="table-card">
+        <table class="admin-table">
+          <thead><tr><th>Customer</th><th>Email</th><th>Phone</th><th>Orders</th><th>Total Spent</th><th>Joined</th><th>Action</th></tr></thead>
+          <tbody>
+            ${[
+              { emoji:'👤', name:'Brian Mwangi', email:'brian@example.com', phone:'+254 712 345 678', orders:8, spent:'KES 540,000', joined:'Jan 2024' },
+              { emoji:'👤', name:'Amina Hassan', email:'amina@example.com', phone:'+254 722 456 789', orders:3, spent:'KES 207,500', joined:'Mar 2024' },
+              { emoji:'👤', name:'David Kipchoge', email:'david@example.com', phone:'+254 733 567 890', orders:5, spent:'KES 162,300', joined:'Jun 2024' },
+              { emoji:'👤', name:'Faith Njeri', email:'faith@example.com', phone:'+254 742 678 901', orders:12, spent:'KES 891,000', joined:'Nov 2023' },
+            ].map(c => `<tr>
+              <td><div style="display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--amber));display:flex;align-items:center;justify-content:center;font-size:0.8rem">👤</div>${c.name}</div></td>
+              <td style="color:var(--slate-light)">${c.email}</td>
+              <td style="color:var(--slate-light)">${c.phone}</td>
+              <td style="color:var(--blue-light);font-weight:600">${c.orders}</td>
+              <td style="font-family:var(--font-display);color:var(--white)">${c.spent}</td>
+              <td style="color:var(--slate);font-size:0.8rem">${c.joined}</td>
+              <td><button class="btn btn-ghost btn-sm" onclick="Toast.show('Customer details loading...','info')">View</button></td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ═══ OTHER TABS (placeholders) ═══ -->
+    <div class="admin-main" id="tab-admin-analytics" style="display:none">
+      <div style="text-align:center;padding:80px;color:var(--slate)">
+        <div style="font-size:3rem;margin-bottom:16px">📈</div>
+        <h3 style="font-family:var(--font-display)">Analytics</h3>
+        <p style="margin-top:8px">Advanced analytics dashboard — connected to backend API in production.</p>
+      </div>
+    </div>
+    <div class="admin-main" id="tab-admin-payments" style="display:none">
+      <div style="text-align:center;padding:80px;color:var(--slate)">
+        <div style="font-size:3rem;margin-bottom:16px">💳</div>
+        <h3 style="font-family:var(--font-display)">Payments</h3>
+        <p style="margin-top:8px">M-Pesa and PayPal transaction logs — connected to Daraja API in production.</p>
+      </div>
+    </div>
+    <div class="admin-main" id="tab-admin-shipping" style="display:none">
+      <div style="text-align:center;padding:80px;color:var(--slate)">
+        <div style="font-size:3rem;margin-bottom:16px">🚚</div>
+        <h3 style="font-family:var(--font-display)">Shipping</h3>
+        <p style="margin-top:8px">Manage delivery zones, rates, and tracking — connected to backend in production.</p>
+      </div>
+    </div>
+    <div class="admin-main" id="tab-admin-settings" style="display:none">
+      <div style="text-align:center;padding:80px;color:var(--slate)">
+        <div style="font-size:3rem;margin-bottom:16px">⚙️</div>
+        <h3 style="font-family:var(--font-display)">Settings</h3>
+        <p style="margin-top:8px">Store settings, email templates, payment keys — configured via Django admin in production.</p>
+      </div>
+    </div>
+
+  </div><!-- /admin-content -->
+</div><!-- /admin-layout -->
+
+<div class="toast-container"></div>
+<script src="main.js"></script>
+<script>
+const adminTabs = ['dashboard','analytics','orders','products','inventory','customers','payments','shipping','settings'];
+
+function showAdminTab(name, el) {
+  adminTabs.forEach(t => {
+    const tab = document.getElementById(`tab-admin-${t}`);
+    if (tab) tab.style.display = 'none';
+  });
+  const active = document.getElementById(`tab-admin-${name}`);
+  if (active) active.style.display = 'block';
+  document.querySelectorAll('.admin-nav-link').forEach(l => l.classList.remove('active'));
+  if (el) el.classList.add('active');
+  document.getElementById('adminPageTitle').textContent = name.charAt(0).toUpperCase() + name.slice(1);
+}
+
+function filterOrders(btn, status) {
+  document.querySelectorAll('#tab-admin-orders .btn').forEach(b => { b.className = 'btn btn-sm btn-secondary'; });
+  btn.className = 'btn btn-sm btn-primary';
+  Toast.show(`Showing ${status} orders`, 'info');
+}
+</script>
+<script src="cart.js"></script>
+</body>
+</html>

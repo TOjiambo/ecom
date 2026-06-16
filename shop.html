@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop — Voltex Electronics</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+<script src="components.js"></script>
+<script>injectNavbar(1);</script>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="sep">›</span>
+      <span id="breadcrumbCat">Shop</span>
+    </div>
+    <h1 id="shopTitle">All Products</h1>
+    <p id="shopSubtitle" style="margin-top:6px">Discover our full range of electronics and gadgets</p>
+  </div>
+</div>
+
+<!-- MAIN SHOP -->
+<section class="section">
+  <div class="container">
+    <div class="shop-layout">
+
+      <!-- SIDEBAR FILTERS -->
+      <aside class="sidebar">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+          <span style="font-family:var(--font-display);font-weight:700">Filters</span>
+          <button class="btn btn-ghost btn-sm" onclick="clearFilters()">Clear all</button>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-title">Category</div>
+          <label class="filter-check"><input type="checkbox" value="laptops" onchange="filterProducts()"> <label>Laptops & PCs</label><span class="filter-count">48</span></label>
+          <label class="filter-check"><input type="checkbox" value="phones" onchange="filterProducts()"> <label>Smartphones</label><span class="filter-count">86</span></label>
+          <label class="filter-check"><input type="checkbox" value="audio" onchange="filterProducts()"> <label>Audio</label><span class="filter-count">63</span></label>
+          <label class="filter-check"><input type="checkbox" value="gaming" onchange="filterProducts()"> <label>Gaming</label><span class="filter-count">39</span></label>
+          <label class="filter-check"><input type="checkbox" value="tablets" onchange="filterProducts()"> <label>Tablets</label><span class="filter-count">24</span></label>
+          <label class="filter-check"><input type="checkbox" value="accessories" onchange="filterProducts()"> <label>Accessories</label><span class="filter-count">120</span></label>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-title">Price Range</div>
+          <div class="price-range">
+            <input type="range" min="0" max="300000" step="1000" value="300000" id="priceRange" oninput="updatePriceLabel(this.value)">
+            <div class="price-values">
+              <span>KES 0</span>
+              <span id="priceLabel">KES 300,000</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-title">Brand</div>
+          <label class="filter-check"><input type="checkbox" value="apple" onchange="filterProducts()"> <label>Apple</label><span class="filter-count">34</span></label>
+          <label class="filter-check"><input type="checkbox" value="samsung" onchange="filterProducts()"> <label>Samsung</label><span class="filter-count">28</span></label>
+          <label class="filter-check"><input type="checkbox" value="sony" onchange="filterProducts()"> <label>Sony</label><span class="filter-count">19</span></label>
+          <label class="filter-check"><input type="checkbox" value="dell" onchange="filterProducts()"> <label>Dell</label><span class="filter-count">12</span></label>
+          <label class="filter-check"><input type="checkbox" value="logitech" onchange="filterProducts()"> <label>Logitech</label><span class="filter-count">22</span></label>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-title">Availability</div>
+          <label class="filter-check"><input type="checkbox" value="in-stock" onchange="filterProducts()"> <label>In Stock</label></label>
+          <label class="filter-check"><input type="checkbox" value="on-sale" onchange="filterProducts()"> <label>On Sale</label></label>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-title">Rating</div>
+          <label class="filter-check"><input type="checkbox" value="4plus" onchange="filterProducts()"> <label>⭐⭐⭐⭐+ (4 & up)</label></label>
+          <label class="filter-check"><input type="checkbox" value="3plus" onchange="filterProducts()"> <label>⭐⭐⭐+ (3 & up)</label></label>
+        </div>
+      </aside>
+
+      <!-- PRODUCTS MAIN -->
+      <div class="shop-main">
+        <div class="shop-toolbar">
+          <div class="results">Showing <strong id="resultCount">0</strong> products</div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <select class="sort-select" onchange="sortProducts(this.value)">
+              <option value="featured">Featured</option>
+              <option value="newest">Newest First</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="rating">Top Rated</option>
+              <option value="popular">Most Popular</option>
+            </select>
+            <div class="view-toggle">
+              <button class="view-btn active" id="gridViewBtn" onclick="setView('grid')" title="Grid view">⊞</button>
+              <button class="view-btn" id="listViewBtn" onclick="setView('list')" title="List view">☰</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="products-grid" id="shopProducts"></div>
+
+        <!-- PAGINATION -->
+        <div class="pagination" id="pagination">
+          <button class="page-btn">← Prev</button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+          <button class="page-btn">4</button>
+          <button class="page-btn">Next →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>injectFooter(1);</script>
+<script src="main.js"></script>
+<script>
+const allProducts = [
+  { id:'p1', name:'MacBook Pro M3 14"', cat:'laptops', brand:'apple', price:189000, oldPrice:252000, emoji:'💻', rating:4.9, reviews:128, badge:'SALE', inStock:true },
+  { id:'p2', name:'Samsung Galaxy S24 Ultra', cat:'phones', brand:'samsung', price:149000, oldPrice:null, emoji:'📱', rating:4.8, reviews:94, badge:'NEW', inStock:true },
+  { id:'p3', name:'Sony WH-1000XM5', cat:'audio', brand:'sony', price:38500, oldPrice:45000, emoji:'🎧', rating:4.9, reviews:203, badge:'SALE', inStock:true },
+  { id:'p4', name:'PS5 DualSense Controller', cat:'gaming', brand:'sony', price:9800, oldPrice:null, emoji:'🎮', rating:4.7, reviews:67, badge:'NEW', inStock:true },
+  { id:'p5', name:'iPad Pro 12.9" M2', cat:'tablets', brand:'apple', price:125000, oldPrice:138000, emoji:'📲', rating:4.8, reviews:89, badge:'SALE', inStock:true },
+  { id:'p6', name:'Dell XPS 15 OLED', cat:'laptops', brand:'dell', price:215000, oldPrice:null, emoji:'💻', rating:4.7, reviews:45, badge:'NEW', inStock:true },
+  { id:'p7', name:'Apple AirPods Pro 2', cat:'audio', brand:'apple', price:29000, oldPrice:34000, emoji:'🎵', rating:4.8, reviews:178, badge:'SALE', inStock:true },
+  { id:'p8', name:'Logitech MX Master 3S', cat:'accessories', brand:'logitech', price:12500, oldPrice:null, emoji:'🖱️', rating:4.9, reviews:312, badge:'', inStock:true },
+  { id:'p9', name:'iPhone 15 Pro Max', cat:'phones', brand:'apple', price:185000, oldPrice:null, emoji:'📱', rating:4.9, reviews:256, badge:'NEW', inStock:true },
+  { id:'p10', name:'Samsung 49" Ultrawide Monitor', cat:'accessories', brand:'samsung', price:89000, oldPrice:105000, emoji:'🖥️', rating:4.6, reviews:41, badge:'SALE', inStock:true },
+  { id:'p11', name:'Razer BlackWidow V4 Pro', cat:'gaming', brand:'razer', price:22000, oldPrice:null, emoji:'⌨️', rating:4.7, reviews:89, badge:'NEW', inStock:true },
+  { id:'p12', name:'Sony WF-1000XM5 Earbuds', cat:'audio', brand:'sony', price:21500, oldPrice:26000, emoji:'🎵', rating:4.8, reviews:134, badge:'SALE', inStock:false },
+];
+
+let displayed = [...allProducts];
+
+function renderShop(list) {
+  const container = document.getElementById('shopProducts');
+  document.getElementById('resultCount').textContent = list.length;
+  container.innerHTML = list.map(p => `
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <div>${p.emoji}</div>
+        <div class="product-badges">
+          ${p.badge ? `<span class="badge ${p.badge === 'NEW' ? 'badge-new' : 'badge-sale'}">${p.badge}</span>` : ''}
+          ${!p.inStock ? '<span class="badge badge-red">OUT OF STOCK</span>' : ''}
+        </div>
+        <div class="product-actions">
+          <button class="product-action-btn" onclick="Wishlist.toggle({id:'${p.id}',name:'${p.name}'});event.preventDefault()" title="Wishlist">♡</button>
+          <a href="product.html?id=${p.id}" class="product-action-btn" title="View">👁</a>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-category">${p.cat.charAt(0).toUpperCase()+p.cat.slice(1)}</div>
+        <a href="product.html?id=${p.id}"><div class="product-name">${p.name}</div></a>
+        <div class="product-rating">
+          <div class="stars">${'★'.repeat(Math.floor(p.rating))}${'☆'.repeat(5-Math.floor(p.rating))}</div>
+          <div class="rating-count">(${p.reviews})</div>
+        </div>
+        <div class="product-price-row">
+          <div class="product-price">
+            KES ${p.price.toLocaleString()}
+            ${p.oldPrice ? `<span class="old">KES ${p.oldPrice.toLocaleString()}</span>` : ''}
+          </div>
+          ${p.inStock ? `<button class="add-to-cart-mini" onclick="Cart.add({id:'${p.id}',name:'${p.name}',price:${p.price},emoji:'${p.emoji}',variant:''})">+</button>` : '<span style="font-size:0.72rem;color:var(--danger)">Unavailable</span>'}
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function filterProducts() {
+  displayed = allProducts.filter(p => {
+    const maxPrice = parseInt(document.getElementById('priceRange').value);
+    return p.price <= maxPrice;
+  });
+  renderShop(displayed);
+}
+
+function sortProducts(val) {
+  const sorted = [...displayed];
+  if (val === 'price-asc') sorted.sort((a,b) => a.price - b.price);
+  else if (val === 'price-desc') sorted.sort((a,b) => b.price - a.price);
+  else if (val === 'rating') sorted.sort((a,b) => b.rating - a.rating);
+  else if (val === 'popular') sorted.sort((a,b) => b.reviews - a.reviews);
+  renderShop(sorted);
+}
+
+function updatePriceLabel(val) {
+  document.getElementById('priceLabel').textContent = `KES ${parseInt(val).toLocaleString()}`;
+  filterProducts();
+}
+
+function clearFilters() {
+  document.querySelectorAll('.sidebar input[type=checkbox]').forEach(c => c.checked = false);
+  document.getElementById('priceRange').value = 300000;
+  document.getElementById('priceLabel').textContent = 'KES 300,000';
+  displayed = [...allProducts];
+  renderShop(displayed);
+}
+
+function setView(type) {
+  const grid = document.getElementById('shopProducts');
+  document.getElementById('gridViewBtn').classList.toggle('active', type === 'grid');
+  document.getElementById('listViewBtn').classList.toggle('active', type === 'list');
+  if (type === 'list') {
+    grid.style.gridTemplateColumns = '1fr';
+  } else {
+    grid.style.gridTemplateColumns = '';
+  }
+}
+
+// Handle URL params
+const params = new URLSearchParams(location.search);
+const cat = params.get('cat');
+const q = params.get('q');
+
+if (cat) {
+  document.getElementById('shopTitle').textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+  document.getElementById('breadcrumbCat').textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+  displayed = allProducts.filter(p => p.cat === cat || cat === 'deals' || cat === 'new');
+} else if (q) {
+  document.getElementById('shopTitle').textContent = `Search: "${q}"`;
+  displayed = allProducts.filter(p => p.name.toLowerCase().includes(q.toLowerCase()));
+}
+
+renderShop(displayed);
+</script>
+<script src="cart.js"></script>
+</body>
+</html>

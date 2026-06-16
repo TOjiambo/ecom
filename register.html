@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account — Voltex Electronics</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+<script src="components.js"></script>
+<script>injectNavbar(1);</script>
+
+<div class="auth-page">
+  <div class="auth-card" style="max-width:500px">
+    <div class="auth-logo">
+      <a href="index.html" class="nav-logo" style="justify-content:center;font-size:1.6rem">
+        <span class="bolt">⚡</span>Volt<span>ex</span>
+      </a>
+    </div>
+    <h2 class="auth-title">Create your account</h2>
+    <p class="auth-subtitle">Join 12,000+ Kenyans shopping smarter</p>
+
+    <div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+        <div>
+          <label>First Name</label>
+          <input type="text" id="regFirst" placeholder="John">
+        </div>
+        <div>
+          <label>Last Name</label>
+          <input type="text" id="regLast" placeholder="Doe">
+        </div>
+      </div>
+      <div class="form-group-inline">
+        <label>Email Address</label>
+        <input type="email" id="regEmail" placeholder="john@example.com">
+      </div>
+      <div class="form-group-inline">
+        <label>Phone Number</label>
+        <input type="tel" id="regPhone" placeholder="+254 700 000 000">
+      </div>
+      <div class="form-group-inline">
+        <label>Password</label>
+        <input type="password" id="regPass" placeholder="At least 8 characters">
+      </div>
+      <div class="form-group-inline">
+        <label>Confirm Password</label>
+        <input type="password" id="regPassConfirm" placeholder="Repeat password">
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:20px">
+        <input type="checkbox" id="agreeTerms" style="width:16px;height:16px;accent-color:var(--blue);margin-top:2px">
+        <label for="agreeTerms" style="font-size:0.82rem;color:var(--slate-light);margin-bottom:0;line-height:1.5">
+          I agree to the <a href="#" style="color:var(--blue-light)">Terms of Service</a> and <a href="#" style="color:var(--blue-light)">Privacy Policy</a>
+        </label>
+      </div>
+      <button class="btn btn-primary btn-full btn-lg" onclick="handleRegister()">Create Account →</button>
+    </div>
+
+    <div class="auth-divider"><span>or</span></div>
+    <button class="btn btn-secondary btn-full" onclick="Toast.show('Google sign-up coming soon!','info')">
+      <span style="font-size:1rem">G</span> Sign up with Google
+    </button>
+    <div class="auth-footer">Already have an account? <a href="login.html">Sign in →</a></div>
+  </div>
+</div>
+
+<script src="main.js"></script>
+<script>
+function handleRegister() {
+  const first = document.getElementById('regFirst').value.trim();
+  const last = document.getElementById('regLast').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const pass = document.getElementById('regPass').value;
+  const passConfirm = document.getElementById('regPassConfirm').value;
+  const agreed = document.getElementById('agreeTerms').checked;
+
+  if (!first || !last || !email || !pass) { Toast.show('Please fill in all fields', 'error'); return; }
+  if (pass !== passConfirm) { Toast.show('Passwords do not match', 'error'); return; }
+  if (pass.length < 8) { Toast.show('Password must be at least 8 characters', 'error'); return; }
+  if (!agreed) { Toast.show('Please agree to the terms', 'error'); return; }
+
+  localStorage.setItem('voltex_user', JSON.stringify({ name: `${first} ${last}`, email }));
+  Toast.show('Account created! Welcome to Voltex 🎉', 'success');
+  setTimeout(() => window.location.href = 'account.html', 1400);
+}
+</script>
+<script src="cart.js"></script>
+</body>
+</html>

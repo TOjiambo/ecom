@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voltex Electronics — Kenya's #1 Gadget Store</title>
+  <link rel="stylesheet" href="main.css">
+  
+</head>
+<body>
+
+<script src="components.js"></script>
+<script>injectNavbar(0);</script>
+
+<!-- ═══════════════════════════════════════════
+     HERO SECTION
+═══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="dot"></span> New Arrivals Just Dropped
+      </div>
+      <h1 class="hero-title">
+        Next-Level <span class="highlight">Tech</span><br>Delivered to You
+      </h1>
+      <p class="hero-subtitle">
+        Shop the latest laptops, smartphones, gaming gear, and accessories. Fast delivery across Kenya. M-Pesa accepted.
+      </p>
+      <div class="hero-ctas">
+        <a href="shop.html" class="btn btn-primary btn-lg">
+          Shop Now
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+        </a>
+        <a href="shop.html?cat=deals" class="btn btn-secondary btn-lg">View Deals ⚡</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num">12K+</div><div class="lbl">Happy Customers</div></div>
+        <div class="hero-stat"><div class="num">500+</div><div class="lbl">Products</div></div>
+        <div class="hero-stat"><div class="num">4.9★</div><div class="lbl">Avg Rating</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-product-card">
+        <div class="floating-badge top-right">-25% OFF</div>
+        <div class="hero-product-img">💻</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <span class="badge badge-blue">NEW</span>
+          <span class="badge badge-green">In Stock</span>
+        </div>
+        <div class="hero-product-name">MacBook Pro M3 14"</div>
+        <div style="color:var(--slate-light);font-size:0.82rem;margin-bottom:12px">Apple Silicon · 18GB RAM · 512GB SSD</div>
+        <div class="hero-product-price">
+          KES 189,000
+          <span class="old">KES 252,000</span>
+        </div>
+        <div class="floating-ping">
+          <div class="ping-dot"></div>
+          <span style="color:var(--slate-light)">3 sold in last <strong style="color:var(--white)">2 hours</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CATEGORIES
+═══════════════════════════════════════════ -->
+<section class="section-sm" style="padding-top:60px">
+  <div class="container">
+    <div class="section-header text-center">
+      <div class="section-eyebrow" style="justify-content:center">Browse by category</div>
+      <h2 class="section-title">Shop by Category</h2>
+    </div>
+    <div class="categories-grid">
+      <a href="shop.html?cat=laptops" class="category-card">
+        <div class="category-icon" style="background:rgba(37,99,235,0.12)">💻</div>
+        <div class="category-name">Laptops</div>
+        <div class="category-count">48 items</div>
+      </a>
+      <a href="shop.html?cat=phones" class="category-card">
+        <div class="category-icon" style="background:rgba(16,185,129,0.12)">📱</div>
+        <div class="category-name">Smartphones</div>
+        <div class="category-count">86 items</div>
+      </a>
+      <a href="shop.html?cat=audio" class="category-card">
+        <div class="category-icon" style="background:rgba(245,158,11,0.12)">🎧</div>
+        <div class="category-name">Audio</div>
+        <div class="category-count">63 items</div>
+      </a>
+      <a href="shop.html?cat=gaming" class="category-card">
+        <div class="category-icon" style="background:rgba(139,92,246,0.12)">🎮</div>
+        <div class="category-name">Gaming</div>
+        <div class="category-count">39 items</div>
+      </a>
+      <a href="shop.html?cat=tablets" class="category-card">
+        <div class="category-icon" style="background:rgba(236,72,153,0.12)">📲</div>
+        <div class="category-name">Tablets</div>
+        <div class="category-count">24 items</div>
+      </a>
+      <a href="shop.html?cat=accessories" class="category-card">
+        <div class="category-icon" style="background:rgba(239,68,68,0.12)">🔌</div>
+        <div class="category-name">Accessories</div>
+        <div class="category-count">120 items</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     FEATURED PRODUCTS
+═══════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header flex-between">
+      <div>
+        <div class="section-eyebrow">Handpicked for you</div>
+        <h2 class="section-title">Featured Products</h2>
+      </div>
+      <a href="shop.html" class="btn btn-secondary">View All →</a>
+    </div>
+    <div class="products-grid" id="featuredProducts">
+      <!-- Products injected by JS below -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PROMO BANNERS
+═══════════════════════════════════════════ -->
+<section class="section-sm" style="padding-top:0">
+  <div class="container">
+    <div class="promo-grid">
+      <div class="promo-card promo-card-main">
+        <div class="promo-content">
+          <div class="promo-eyebrow">Limited Time Offer</div>
+          <div class="promo-title">Up to 40% Off<br>Laptops & PCs</div>
+          <div class="promo-desc">Top brands: Apple, Dell, HP, Lenovo. While stocks last.</div>
+          <a href="shop.html?cat=laptops" class="btn btn-primary">Shop Laptops →</a>
+        </div>
+        <div class="promo-emoji">💻</div>
+      </div>
+      <div class="promo-card promo-card-sub">
+        <div class="promo-content">
+          <div class="promo-eyebrow">Gaming Week</div>
+          <div class="promo-title">Level Up<br>Your Setup</div>
+          <div class="promo-desc">Controllers, headsets, monitors.</div>
+          <a href="shop.html?cat=gaming" class="btn btn-amber btn-sm">Shop Gaming →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     NEW ARRIVALS
+═══════════════════════════════════════════ -->
+<section class="section" style="padding-top:40px">
+  <div class="container">
+    <div class="section-header flex-between">
+      <div>
+        <div class="section-eyebrow">Just landed</div>
+        <h2 class="section-title">New Arrivals</h2>
+      </div>
+      <a href="shop.html?cat=new" class="btn btn-secondary">See All New →</a>
+    </div>
+    <div class="products-grid" id="newArrivals"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     TESTIMONIALS
+═══════════════════════════════════════════ -->
+<section class="section" style="background:var(--navy-mid)">
+  <div class="container">
+    <div class="section-header text-center">
+      <div class="section-eyebrow" style="justify-content:center">What our customers say</div>
+      <h2 class="section-title">Loved by Kenyans 🇰🇪</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar">😊</div>
+          <div>
+            <div class="testimonial-name">Brian Mwangi</div>
+            <div class="testimonial-meta">⭐⭐⭐⭐⭐ · Nairobi</div>
+          </div>
+        </div>
+        <div class="testimonial-text">Ordered my MacBook on Monday, it arrived Tuesday evening. M-Pesa payment was seamless and the packaging was top notch. Voltex is now my go-to for electronics.</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar">🙂</div>
+          <div>
+            <div class="testimonial-name">Amina Hassan</div>
+            <div class="testimonial-meta">⭐⭐⭐⭐⭐ · Mombasa</div>
+          </div>
+        </div>
+        <div class="testimonial-text">Got my Sony headphones delivered to Mombasa in 2 days. The price was way better than any shop in town. Will definitely order again!</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar">😄</div>
+          <div>
+            <div class="testimonial-name">David Kipchoge</div>
+            <div class="testimonial-meta">⭐⭐⭐⭐⭐ · Eldoret</div>
+          </div>
+        </div>
+        <div class="testimonial-text">Bought a gaming PC, monitor, and keyboard all in one order. Got a discount on the bundle and customer support helped me pick compatible parts. Amazing service!</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     NEWSLETTER
+═══════════════════════════════════════════ -->
+<section class="section-sm">
+  <div class="container">
+    <div class="newsletter-section">
+      <div class="section-eyebrow" style="justify-content:center">Stay in the loop</div>
+      <h2 style="margin-bottom:8px">Get Exclusive Deals First</h2>
+      <p>Join 15,000+ subscribers. Get early access to sales, new arrivals, and tech tips.</p>
+      <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+        <input type="email" id="newsletterEmail" placeholder="Enter your email address">
+        <button type="submit" class="btn btn-primary">Subscribe ✓</button>
+      </form>
+      <div style="font-size:0.75rem;color:var(--slate);margin-top:12px">No spam. Unsubscribe anytime.</div>
+    </div>
+  </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>injectFooter(0);</script>
+<script src="main.js"></script>
+<script>
+// ─── PRODUCT DATA ────────────────────────────
+const products = [
+  { id:'p1', name:'MacBook Pro M3 14"', category:'Laptops', price:189000, oldPrice:252000, emoji:'💻', rating:4.9, reviews:128, badge:'SALE', isNew:false },
+  { id:'p2', name:'Samsung Galaxy S24 Ultra', category:'Smartphones', price:149000, oldPrice:null, emoji:'📱', rating:4.8, reviews:94, badge:'NEW', isNew:true },
+  { id:'p3', name:'Sony WH-1000XM5', category:'Audio', price:38500, oldPrice:45000, emoji:'🎧', rating:4.9, reviews:203, badge:'SALE', isNew:false },
+  { id:'p4', name:'PS5 DualSense Controller', category:'Gaming', price:9800, oldPrice:null, emoji:'🎮', rating:4.7, reviews:67, badge:'NEW', isNew:true },
+  { id:'p5', name:'iPad Pro 12.9" M2', category:'Tablets', price:125000, oldPrice:138000, emoji:'📲', rating:4.8, reviews:89, badge:'SALE', isNew:false },
+  { id:'p6', name:'Dell XPS 15 OLED', category:'Laptops', price:215000, oldPrice:null, emoji:'💻', rating:4.7, reviews:45, badge:'NEW', isNew:true },
+  { id:'p7', name:'Apple AirPods Pro 2', category:'Audio', price:29000, oldPrice:34000, emoji:'🎵', rating:4.8, reviews:178, badge:'SALE', isNew:false },
+  { id:'p8', name:'Logitech MX Master 3S', category:'Accessories', price:12500, oldPrice:null, emoji:'🖱️', rating:4.9, reviews:312, badge:'', isNew:false },
+];
+
+function renderProducts(list, containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = list.map(p => `
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <div>${p.emoji}</div>
+        <div class="product-badges">
+          ${p.badge ? `<span class="badge ${p.badge === 'NEW' ? 'badge-new' : 'badge-sale'}">${p.badge}</span>` : ''}
+        </div>
+        <div class="product-actions">
+          <button class="product-action-btn" title="Wishlist" onclick="Wishlist.toggle({id:'${p.id}',name:'${p.name}'});event.preventDefault()">♡</button>
+          <a href="pages/product.html?id=${p.id}" class="product-action-btn" title="Quick view">👁</a>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-category">${p.category}</div>
+        <a href="pages/product.html?id=${p.id}">
+          <div class="product-name">${p.name}</div>
+        </a>
+        <div class="product-rating">
+          <div class="stars">${'★'.repeat(Math.floor(p.rating))}${'☆'.repeat(5-Math.floor(p.rating))}</div>
+          <div class="rating-count">(${p.reviews})</div>
+        </div>
+        <div class="product-price-row">
+          <div class="product-price">
+            KES ${p.price.toLocaleString()}
+            ${p.oldPrice ? `<span class="old">KES ${p.oldPrice.toLocaleString()}</span>` : ''}
+          </div>
+          <button class="add-to-cart-mini" title="Add to cart"
+            onclick="Cart.add({id:'${p.id}',name:'${p.name}',price:${p.price},emoji:'${p.emoji}',variant:''})">
+            +
+          </button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+renderProducts(products.slice(0,4), 'featuredProducts');
+renderProducts(products.filter(p => p.isNew).slice(0,4), 'newArrivals');
+</script>
+<script src="cart.js"></script>
+</body>
+</html>
