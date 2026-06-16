@@ -1,4 +1,4 @@
-const Cart = {
+window.Cart = window.Cart || {
   get() {
     return JSON.parse(localStorage.getItem("cart")) || [];
   },
@@ -17,10 +17,7 @@ const Cart = {
     if (existing) {
       existing.qty += item.qty || 1;
     } else {
-      cart.push({
-        ...item,
-        qty: item.qty || 1
-      });
+      cart.push({ ...item, qty: item.qty || 1 });
     }
 
     this.save(cart);
